@@ -1,4 +1,3 @@
-// Main.java
 import java.util.*;
 import java.text.SimpleDateFormat;
 
@@ -8,9 +7,7 @@ public class Main {
         app.run();
     }
 }
-
-// ============= CREATIONAL PATTERN: SINGLETON =============
-// Ensures only one instance of the application exists
+//singleton
 class MindWellApp {
     private static MindWellApp instance;
     private UserManager userManager;
@@ -214,7 +211,7 @@ class MindWellApp {
         MoodEntry lastEntry = history.get(history.size() - 1);
         int mood = lastEntry.getMoodLevel();
 
-        // BEHAVIORAL PATTERN: STRATEGY - Select recommendation algorithm
+        // strategy
         RecommendationStrategy strategy;
         if (mood <= 3) {
             strategy = new LowMoodStrategy();
@@ -277,7 +274,7 @@ class MindWellApp {
         if (choice > 0 && choice <= exercises.size()) {
             Exercise exercise = exercises.get(choice - 1);
 
-            // STRUCTURAL PATTERN: DECORATOR - Add features to exercise
+            // decorator
             Exercise decoratedExercise = new TimerDecorator(new ReminderDecorator(exercise));
 
             System.out.println("\n" + decoratedExercise.execute());
@@ -513,7 +510,7 @@ class ExerciseCount {
     }
 }
 
-// ============= SINGLETON - UserManager =============
+// singleton
 class UserManager {
     private static UserManager instance;
     private List<User> users;
@@ -549,7 +546,6 @@ class UserManager {
     }
 }
 
-// ============= User Class (SOLID: Single Responsibility) =============
 class User implements Observer {
     private String username;
     private String password;
@@ -598,11 +594,10 @@ class User implements Observer {
 
     @Override
     public void update(String topic, String message) {
-        System.out.println("\n🔔 Notification: New post in '" + topic + "'");
+        System.out.println("\n Notification: New post in '" + topic + "'");
     }
 }
 
-// ============= Mood Entry =============
 class MoodEntry {
     private int moodLevel;
     private String note;
@@ -626,8 +621,7 @@ class MoodEntry {
     }
 }
 
-// ============= BEHAVIORAL PATTERN: STRATEGY =============
-// Allows selecting different recommendation algorithms at runtime
+//strategy
 interface RecommendationStrategy {
     String getRecommendation();
 }
@@ -635,7 +629,7 @@ interface RecommendationStrategy {
 class LowMoodStrategy implements RecommendationStrategy {
     @Override
     public String getRecommendation() {
-        return "💙 We're here for you. Try:\n" +
+        return " We're here for you. Try:\n" +
                 "- Deep breathing exercise\n" +
                 "- Talk to someone in the community\n" +
                 "- Take a short walk\n" +
@@ -646,7 +640,7 @@ class LowMoodStrategy implements RecommendationStrategy {
 class MediumMoodStrategy implements RecommendationStrategy {
     @Override
     public String getRecommendation() {
-        return "😊 You're doing okay! Consider:\n" +
+        return " You're doing okay! Consider:\n" +
                 "- A short meditation session\n" +
                 "- Journaling your thoughts\n" +
                 "- Connect with the community\n" +
@@ -657,7 +651,7 @@ class MediumMoodStrategy implements RecommendationStrategy {
 class HighMoodStrategy implements RecommendationStrategy {
     @Override
     public String getRecommendation() {
-        return "🌟 You're feeling great! Keep it up:\n" +
+        return " You're feeling great! Keep it up:\n" +
                 "- Share your positive energy in the community\n" +
                 "- Try a challenging exercise\n" +
                 "- Help someone who might be struggling\n" +
@@ -665,7 +659,7 @@ class HighMoodStrategy implements RecommendationStrategy {
     }
 }
 
-// ============= SINGLETON - ExerciseManager =============
+// singleton
 class ExerciseManager {
     private static ExerciseManager instance;
     private List<Exercise> exercises;
@@ -693,7 +687,6 @@ class ExerciseManager {
     }
 }
 
-// ============= Exercise Classes (SOLID: Open/Closed Principle) =============
 abstract class Exercise {
     protected String name;
     protected String description;
@@ -740,7 +733,7 @@ class MeditationExercise extends Exercise {
 
     @Override
     public String execute() {
-        return "🧘 Guided Meditation:\n" +
+        return " Guided Meditation:\n" +
                 "1. Sit comfortably\n" +
                 "2. Close your eyes\n" +
                 "3. Focus on your breath\n" +
@@ -758,7 +751,7 @@ class RelaxationExercise extends Exercise {
 
     @Override
     public String execute() {
-        return "💆 Progressive Relaxation:\n" +
+        return " Progressive Relaxation:\n" +
                 "1. Start with your toes, tense for 5 seconds\n" +
                 "2. Release and feel the relaxation\n" +
                 "3. Move up to calves, thighs, etc.\n" +
@@ -775,7 +768,7 @@ class MindfulnessExercise extends Exercise {
 
     @Override
     public String execute() {
-        return "🌸 Mindfulness Practice:\n" +
+        return " Mindfulness Practice:\n" +
                 "1. Notice 5 things you can see\n" +
                 "2. Notice 4 things you can touch\n" +
                 "3. Notice 3 things you can hear\n" +
@@ -784,8 +777,7 @@ class MindfulnessExercise extends Exercise {
     }
 }
 
-// ============= STRUCTURAL PATTERN: DECORATOR =============
-// Dynamically adds features (timer, reminder) to exercises
+//decorator
 abstract class ExerciseDecorator extends Exercise {
     protected Exercise wrappedExercise;
 
@@ -824,13 +816,12 @@ class ReminderDecorator extends ExerciseDecorator {
 
     @Override
     public String execute() {
-        return "🔔 Reminder: Take your time and breathe\n" +
+        return " Reminder: Take your time and breathe\n" +
                 wrappedExercise.execute();
     }
 }
 
-// ============= BEHAVIORAL PATTERN: OBSERVER =============
-// Notifies users when new posts are made in subscribed topics
+//observer
 interface Observer {
     void update(String topic, String message);
 }
@@ -867,7 +858,7 @@ class TopicSubscribers {
     }
 }
 
-// ============= SINGLETON - CommunityManager =============
+// singleton
 class CommunityManager implements Subject {
     private static CommunityManager instance;
     private List<CommunityPost> posts;
